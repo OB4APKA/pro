@@ -1,0 +1,143 @@
+$font-stack: 'Arial', sans-serif;
+$main-color: #f8f9fa;
+$primary: #475bd1;
+
+$card-color-base: #fabebe; 
+$color-step: 5%;
+$colors: ();
+
+@use "sass:list";
+@use "sass:color";
+
+$font-family-base: $font-stack;
+
+@use "~bootstrap/scss/bootstrap" with (
+  $font-family-base: $font-family-base,
+  $primary: $primary
+);
+
+@for $i from 1 through 5 {
+  $step: $i * $color-step; 
+  $colors: list.append($colors, color.scale($card-color-base, $lightness: -$step));
+}
+
+body {
+  font-family: $font-stack;
+  background-color: $main-color;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+
+.card-buttons {
+    margin-top: auto; 
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.character-card {
+  transition: transform 0.25s ease-in-out;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: black ;
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .img-wrapper {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+
+    img {
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+      padding: 10px;
+    }
+  }
+
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    color: #2c3e50;
+
+    .buttons {
+        margin-top: auto; 
+    }
+}
+  .card-buttons {
+      margin-top: auto;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+  }
+
+  .character-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: $primary;
+    color: black;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 5;
+  }
+}
+
+.modal-body img {
+  max-height: 220px;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+
+@for $i from 1 through list.length($colors) {
+  
+  .card-color-#{$i} .my-card {
+    background-color: list.nth($colors, $i) !important;
+    border: 1px solid color.scale(list.nth($colors, $i), $lightness: -20%) !important;
+  }
+
+  .row > div:nth-of-type(#{list.length($colors)}n + #{$i}) .my-card {
+    background-color: list.nth($colors, $i) !important;
+    border: 1px solid color.scale(list.nth($colors, $i), $lightness: -20%) !important;
+  }
+
+}
+
+@include bootstrap.media-breakpoint-down(sm) {
+  .character-card .img-wrapper {
+    height: 170px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+  }
+}
+
+@include bootstrap.media-breakpoint-up(xxl) {
+  .container-fluid {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
