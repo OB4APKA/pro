@@ -29,59 +29,50 @@ body {
 }
 
 .card-buttons {
-    margin-top: auto; 
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
+  margin-top: auto;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.character-card {
+.my-card {
   transition: transform 0.25s ease-in-out;
   height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
-  color: black ;
+  color: black;
+
   &:hover {
     transform: translateY(-5px);
   }
 
-  .img-wrapper {
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ffffff;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-
-    img {
-      max-height: 100%;
-      width: auto;
-      object-fit: contain;
+  .character-img-wrapper {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
       padding: 10px;
-    }
   }
 
+  .character-img-wrapper img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+  }
 
   .card-body {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    color: #2c3e50;
-
-    .buttons {
-        margin-top: auto; 
-    }
-}
-  .card-buttons {
-      margin-top: auto;
       display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
+      flex-direction: column;
   }
+
 
   .character-badge {
     position: absolute;
@@ -106,23 +97,15 @@ body {
   object-position: center;
 }
 
-
 @for $i from 1 through list.length($colors) {
-  
-  .card-color-#{$i} .my-card {
-    background-color: list.nth($colors, $i) !important;
-    border: 1px solid color.scale(list.nth($colors, $i), $lightness: -20%) !important;
-  }
-
   .row > div:nth-of-type(#{list.length($colors)}n + #{$i}) .my-card {
     background-color: list.nth($colors, $i) !important;
     border: 1px solid color.scale(list.nth($colors, $i), $lightness: -20%) !important;
   }
-
 }
 
 @include bootstrap.media-breakpoint-down(sm) {
-  .character-card .img-wrapper {
+  .character-card .character-img-wrapper {
     height: 170px;
   }
 

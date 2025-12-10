@@ -9,18 +9,19 @@
     <div class="row g-4">
         @foreach($characters as $character)
             <div class="col-6 col-sm-6 col-lg-4 col-xl-3">
-                <div class="card h-100 my-card">
+                <div class="card h-100 my-card d-flex flex-column">
+
                     <div class="character-img-wrapper">
                         <img src="{{ asset('storage/' . $character->image) }}" 
                             alt="{{ $character->name }}">
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $character->name }}</h5>
                         <span class="badge bg-primary">{{ $character->type }}</span>
                         <p class="mt-2">{{ $character->description }}</p>
 
-                        <div class="buttons card-buttons">
+                        <div class="buttons card-buttons mt-auto">
                             <a href="{{ route('characters.show', $character) }}" class="btn btn-primary btn-sm">Подробнее</a>
                             <a href="{{ route('characters.edit', $character) }}" class="btn btn-warning btn-sm">Изменить</a>
 
